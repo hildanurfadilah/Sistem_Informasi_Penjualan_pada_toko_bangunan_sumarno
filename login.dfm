@@ -4,7 +4,7 @@ object Form1: TForm1
   Width = 870
   Height = 450
   Caption = 'LOGIN'
-  Color = clBtnFace
+  Color = clActiveCaption
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
   Font.Height = -11
@@ -63,5 +63,35 @@ object Form1: TForm1
     Height = 49
     Caption = 'REGISTER'
     TabOrder = 3
+  end
+  object con1: TZConnection
+    ControlsCodePage = cGET_ACP
+    UTF8StringsAsWideField = False
+    AutoEncodeStrings = False
+    Connected = True
+    HostName = 'localhost'
+    Port = 3306
+    Database = 'tokobangunan'
+    User = 'root'
+    Protocol = 'mysql'
+    LibraryLocation = 
+      'C:\Users\ACER\Documents\SEMESTER 5\VISUAL 3\UAS VISUAL 3\libmysq' +
+      'l.dll'
+    Left = 328
+    Top = 312
+  end
+  object zqry1: TZQuery
+    Connection = con1
+    Active = True
+    SQL.Strings = (
+      'SELECT * From user')
+    Params = <>
+    Left = 376
+    Top = 312
+  end
+  object ds1: TDataSource
+    DataSet = zqry1
+    Left = 424
+    Top = 312
   end
 end
