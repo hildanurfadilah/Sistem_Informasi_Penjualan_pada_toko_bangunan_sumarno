@@ -1,6 +1,6 @@
 object Form10: TForm10
-  Left = 193
-  Top = 186
+  Left = 196
+  Top = 158
   Width = 870
   Height = 450
   Caption = 'TABEL KOSTUMER'

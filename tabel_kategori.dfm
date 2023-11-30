@@ -119,6 +119,7 @@ object Form9: TForm9
     Top = 227
     Width = 585
     Height = 120
+    DataSource = ds1
     TabOrder = 8
     TitleFont.Charset = DEFAULT_CHARSET
     TitleFont.Color = clWindowText
@@ -145,8 +146,9 @@ object Form9: TForm9
   end
   object zqry1: TZQuery
     Connection = con1
+    Active = True
     SQL.Strings = (
-      'SELECT * From kategori')
+      'SELECT * From tabel_kategori')
     Params = <>
     Left = 728
     Top = 88

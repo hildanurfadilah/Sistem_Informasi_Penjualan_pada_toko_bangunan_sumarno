@@ -146,42 +146,42 @@ object Form5: TForm5
     Left = 392
     Top = 56
     Width = 145
-    Height = 25
+    Height = 21
     TabOrder = 7
   end
   object edt2: TEdit
     Left = 392
     Top = 88
     Width = 145
-    Height = 25
+    Height = 21
     TabOrder = 8
   end
   object edt3: TEdit
     Left = 392
     Top = 120
     Width = 145
-    Height = 25
+    Height = 21
     TabOrder = 9
   end
   object edt4: TEdit
     Left = 392
     Top = 152
     Width = 145
-    Height = 25
+    Height = 21
     TabOrder = 10
   end
   object edt5: TEdit
     Left = 392
     Top = 184
     Width = 145
-    Height = 25
+    Height = 21
     TabOrder = 11
   end
   object edt6: TEdit
     Left = 392
     Top = 224
     Width = 145
-    Height = 25
+    Height = 21
     TabOrder = 12
   end
   object con2: TZConnection

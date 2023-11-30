@@ -11,6 +11,7 @@ object Form6: TForm6
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
+  OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
   object lbl1: TLabel
@@ -109,6 +110,7 @@ object Form6: TForm6
     Height = 33
     Caption = 'BARU'
     TabOrder = 5
+    OnClick = btn1Click
   end
   object btn2: TButton
     Left = 240
@@ -117,6 +119,7 @@ object Form6: TForm6
     Height = 33
     Caption = 'SIMPAN'
     TabOrder = 6
+    OnClick = btn2Click
   end
   object btn3: TButton
     Left = 336
@@ -125,6 +128,7 @@ object Form6: TForm6
     Height = 33
     Caption = 'EDIT'
     TabOrder = 7
+    OnClick = btn3Click
   end
   object btn4: TButton
     Left = 432
@@ -133,6 +137,7 @@ object Form6: TForm6
     Height = 33
     Caption = 'HAPUS'
     TabOrder = 8
+    OnClick = btn4Click
   end
   object btn5: TButton
     Left = 528
@@ -141,6 +146,7 @@ object Form6: TForm6
     Height = 33
     Caption = 'BATAL'
     TabOrder = 9
+    OnClick = btn5Click
   end
   object btn6: TButton
     Left = 624
@@ -155,12 +161,14 @@ object Form6: TForm6
     Top = 296
     Width = 585
     Height = 106
+    DataSource = ds1
     TabOrder = 11
     TitleFont.Charset = DEFAULT_CHARSET
     TitleFont.Color = clWindowText
     TitleFont.Height = -11
     TitleFont.Name = 'Tahoma'
     TitleFont.Style = []
+    OnCellClick = dbgrd1CellClick
   end
   object con1: TZConnection
     ControlsCodePage = cGET_ACP
@@ -182,7 +190,7 @@ object Form6: TForm6
     Connection = con1
     Active = True
     SQL.Strings = (
-      'SELECT * From user')
+      'SELECT * From tabel_detail_jual')
     Params = <>
     Left = 728
     Top = 88

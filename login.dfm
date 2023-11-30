@@ -55,6 +55,7 @@ object Form1: TForm1
     Height = 49
     Caption = 'MASUK'
     TabOrder = 2
+    OnClick = btn1Click
   end
   object btn2: TButton
     Left = 408
