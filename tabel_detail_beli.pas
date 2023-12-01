@@ -5,7 +5,8 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, StdCtrls, Grids, DBGrids, DB, ZAbstractRODataset,
-  ZAbstractDataset, ZDataset, ZAbstractConnection, ZConnection;
+  ZAbstractDataset, ZDataset, ZAbstractConnection, ZConnection, frxClass,
+  frxDBSet;
 
 type
   TForm8 = class(TForm)
@@ -31,6 +32,8 @@ type
     btn5: TButton;
     btn6: TButton;
     dbgrd1: TDBGrid;
+    frxreport1: TfrxReport;
+    frxdbdtst1: TfrxDBDataset;
     procedure posisiawal;
     procedure editbersih;
     procedure editenable;
@@ -42,6 +45,7 @@ type
     procedure btn5Click(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure dbgrd1CellClick(Column: TColumn);
+    procedure btn6Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -118,7 +122,7 @@ begin
 end else
 if(zqry1.Locate('beli_id',edt1.Text,[]))then
 begin
-  ShowMessage('Data detail_beli sudah ada');
+  ShowMessage('Data tabel_detail_beli sudah ada');
   posisiawal;
 end else
 begin
@@ -141,12 +145,12 @@ id:=dbgrd1.DataSource.DataSet.FieldByName('id').AsString;
 
 
 zqry1.SQL.Clear;
-zqry1.SQL.Add('Update detail_beli set beli_id= "'+edt1.Text+'", barang_id = "'+edt2.Text+'", jumlah = "'+edt3.Text+'", harga_beli = "'+edt4.Text+'", total_beli = "'+edt5.Text+'" where id ="'+id+'"');
+zqry1.SQL.Add('Update tabel_detail_beli set beli_id= "'+edt1.Text+'", barang_id = "'+edt2.Text+'", jumlah = "'+edt3.Text+'", harga_beli = "'+edt4.Text+'", total_beli = "'+edt5.Text+'" where id ="'+id+'"');
 zqry1.ExecSQL;
 ShowMessage('DATA BERHASIL DIUPDATE!'); //UPDATE
 
 zqry1.SQL.Clear;
-zqry1.SQL.Add('select * from detail_beli');
+zqry1.SQL.Add('select * from tabel_detail_beli');
 zqry1.Open;
 posisiawal;
 end;
@@ -159,11 +163,11 @@ begin
 id:=dbgrd1.DataSource.DataSet.FieldByName('id').AsString;
 
 zqry1.SQL.Clear;
-zqry1.SQL.Add(' delete from detail_beli where id ="'+id+'"');
+zqry1.SQL.Add(' delete from tabel_detail_beli where id ="'+id+'"');
 zqry1.ExecSQL;
 
 zqry1.SQL.Clear;
-zqry1.SQL.Add('select * from detail_beli');
+zqry1.SQL.Add('select * from tabel_detail_beli');
 zqry1.Open;
 ShowMessage('DATA BERHASIL DIHAPUS');
 posisiawal;
@@ -201,6 +205,11 @@ edt2.Text:= zqry1.FieldList[2].AsString;
 edt3.Text:= zqry1.FieldList[3].AsString;
 edt4.Text:= zqry1.FieldList[4].AsString;
 edt5.Text:= zqry1.FieldList[5].AsString
+end;
+
+procedure TForm8.btn6Click(Sender: TObject);
+begin
+frxreport1.ShowReport();
 end;
 
 end.

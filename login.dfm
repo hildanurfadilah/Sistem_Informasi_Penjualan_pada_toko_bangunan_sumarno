@@ -64,6 +64,7 @@ object Form1: TForm1
     Height = 49
     Caption = 'REGISTER'
     TabOrder = 3
+    OnClick = btn2Click
   end
   object con1: TZConnection
     ControlsCodePage = cGET_ACP

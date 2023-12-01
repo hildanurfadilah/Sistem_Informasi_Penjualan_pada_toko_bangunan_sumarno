@@ -5,7 +5,7 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, StdCtrls, DB, ZAbstractRODataset, ZAbstractDataset, ZDataset,
-  ZAbstractConnection, ZConnection, Grids, DBGrids;
+  ZAbstractConnection, ZConnection, Grids, DBGrids, frxClass, frxDBSet;
 
 type
   TForm4 = class(TForm)
@@ -31,6 +31,8 @@ type
     con1: TZConnection;
     zqry1: TZQuery;
     ds1: TDataSource;
+    frxreport1: TfrxReport;
+    frxdbdtst1: TfrxDBDataset;
     procedure posisiawal;
     procedure editbersih;
     procedure editenable;
@@ -42,6 +44,7 @@ type
     procedure btn5Click(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure dbgrd1CellClick(Column: TColumn);
+    procedure btn6Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -100,7 +103,7 @@ procedure TForm4.btn1Click(Sender: TObject);
 begin
 editbersih;
 
-btn1.Enabled:= false;
+btn1.Enabled:= False;
 btn2.Enabled:= True;
 btn3.Enabled:= False;
 btn4.Enabled:= False;
@@ -112,7 +115,7 @@ procedure TForm4.btn2Click(Sender: TObject);
 begin
 //SIMPAN
 
-if(edt1.Text = '')or(edt2.Text = '')or(edt3.Text = '') or (edt4.Text = '')then
+if(edt1.Text = '')or(edt2.Text = '')or(edt3.Text = '')or(edt4.Text = '')or(edt5.Text = '')then
 begin
   ShowMessage('DATA TIDAK BOLEH KOSONG !');
 end else
@@ -123,7 +126,7 @@ begin
 end else
 begin
 zqry1.sql.clear;
-zqry1.sql.Add('insert into tabel_jual values(null,"'+edt1.Text+'","'+edt2.Text+'","'+edt3.text+'","'+edt4.text+'")');
+zqry1.sql.Add('insert into tabel_jual values(null,"'+edt1.Text+'","'+edt2.Text+'","'+edt3.text+'","'+edt4.Text+'","'+edt5.text+'")');
 zqry1.ExecSQL;
 
 zqry1.SQL.Clear;
@@ -201,6 +204,11 @@ edt2.Text:= zqry1.FieldList[2].AsString;
 edt3.Text:= zqry1.FieldList[3].AsString;
 edt4.Text:= zqry1.FieldList[4].AsString;
 edt5.Text:= zqry1.FieldList[5].AsString;
+end;
+
+procedure TForm4.btn6Click(Sender: TObject);
+begin
+frxreport1.ShowReport();
 end;
 
 end.

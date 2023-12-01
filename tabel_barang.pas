@@ -5,7 +5,8 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, StdCtrls, Grids, DBGrids, DB, ZAbstractRODataset,
-  ZAbstractDataset, ZDataset, ZAbstractConnection, ZConnection;
+  ZAbstractDataset, ZDataset, ZAbstractConnection, ZConnection, frxClass,
+  frxDBSet;
 
 type
   TForm5 = class(TForm)
@@ -23,16 +24,18 @@ type
     btn10: TButton;
     btn11: TButton;
     btn12: TButton;
-    dbgrd2: TDBGrid;
-    con2: TZConnection;
-    zqry2: TZQuery;
-    ds2: TDataSource;
+    dbgrd1: TDBGrid;
+    con1: TZConnection;
+    zqry1: TZQuery;
+    ds1: TDataSource;
     edt1: TEdit;
     edt2: TEdit;
     edt3: TEdit;
     edt4: TEdit;
     edt5: TEdit;
     edt6: TEdit;
+    frxreport1: TfrxReport;
+    frxdbdtst1: TfrxDBDataset;
     procedure posisiawal;
     procedure editbersih;
     procedure editenable;
@@ -43,7 +46,8 @@ type
     procedure btn10Click(Sender: TObject);
     procedure btn11Click(Sender: TObject);
     procedure FormShow(Sender: TObject);
-    procedure dbgrd2CellClick(Column: TColumn);
+    procedure dbgrd1CellClick(Column: TColumn);
+    procedure btn12Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -121,19 +125,19 @@ if(edt1.Text = '') or(edt2.Text = '') or(edt3.Text = '') or(edt4.Text = '') or(e
 begin
   ShowMessage('DATA TIDAK BOLEH KOSONG !');
 end else
-if(zqry2.Locate('kategori_id',edt1.Text,[]))then
+if(zqry1.Locate('kategori_id',edt1.Text,[]))then
 begin
-  ShowMessage('Data barang sudah ada');
+  ShowMessage('Data tabel_barang sudah ada');
   posisiawal;
 end else
 begin
-zqry2.sql.clear;
-zqry2.sql.Add('insert into tabel_barang values(null,"'+edt1.Text+'","'+edt2.Text+'","'+edt3.Text+'","'+edt4.Text+'","'+edt5.Text+'","'+edt6.Text+'")');
-zqry2.ExecSQL;
+zqry1.sql.clear;
+zqry1.sql.Add('insert into tabel_barang values(null,"'+edt1.Text+'","'+edt2.Text+'","'+edt3.Text+'","'+edt4.Text+'","'+edt5.Text+'","'+edt6.Text+'")');
+zqry1.ExecSQL;
 
-zqry2.SQL.Clear;
-zqry2.SQL.Add('select * from tabel_barang');
-zqry2.Open;
+zqry1.SQL.Clear;
+zqry1.SQL.Add('select * from tabel_barang');
+zqry1.Open;
 ShowMessage('DATA BERHASIL DISIMPAN!!');
 posisiawal;
 end;
@@ -142,16 +146,16 @@ end;
 procedure TForm5.btn9Click(Sender: TObject);
 begin
 begin
-id:=dbgrd2.DataSource.DataSet.FieldByName('id').AsString;
+id:=dbgrd1.DataSource.DataSet.FieldByName('id').AsString;
 
-zqry2.SQL.Clear;
-zqry2.SQL.Add('Update barang set kategori_id= "'+edt1.Text+'", barcode = "'+edt2.Text+'",nama_barang = "'+edt3.Text+'", stok = "'+edt4.Text+'", harga_jual = "'+edt5.Text+'", harga_beli = "'+edt6.Text+'", where id ="'+id+'"');
-zqry2.ExecSQL;
+zqry1.SQL.Clear;
+zqry1.SQL.Add('Update tabel_barang set kategori_id= "'+edt1.Text+'", barcode = "'+edt2.Text+'",nama_barang = "'+edt3.Text+'", stok = "'+edt4.Text+'", harga_jual = "'+edt5.Text+'", harga_beli = "'+edt6.Text+'", where id ="'+id+'"');
+zqry1.ExecSQL;
 ShowMessage('DATA BERHASIL DIUPDATE!'); //UPDATE
 
-zqry2.SQL.Clear;
-zqry2.SQL.Add('select * from barang');
-zqry2.Open;
+zqry1.SQL.Clear;
+zqry1.SQL.Add('select * from tabel_barang');
+zqry1.Open;
 posisiawal;
 end;
 end;
@@ -160,15 +164,15 @@ procedure TForm5.btn10Click(Sender: TObject);
 begin
 if MessageDlg('APAKAH YAKIN MENGHAPUS DATA INI?',mtWarning,[mbYes,mbNo],0)= mryes then
 begin
-id:=dbgrd2.DataSource.DataSet.FieldByName('id').AsString;
+id:=dbgrd1.DataSource.DataSet.FieldByName('id').AsString;
 
-zqry2.SQL.Clear;
-zqry2.SQL.Add(' delete from barang where id ="'+id+'"');
-zqry2.ExecSQL;
+zqry1.SQL.Clear;
+zqry1.SQL.Add(' delete from tabel_barang where id ="'+id+'"');
+zqry1.ExecSQL;
 
-zqry2.SQL.Clear;
-zqry2.SQL.Add('select * from barang');
-zqry2.Open;
+zqry1.SQL.Clear;
+zqry1.SQL.Add('select * from tabel_barang');
+zqry1.Open;
 ShowMessage('DATA BERHASIL DIHAPUS');
 posisiawal;
 end else
@@ -188,7 +192,7 @@ begin
 posisiawal;
 end;
 
-procedure TForm5.dbgrd2CellClick(Column: TColumn);
+procedure TForm5.dbgrd1CellClick(Column: TColumn);
 begin
 editenable;
 
@@ -198,14 +202,19 @@ btn9.Enabled:= True;
 btn10.Enabled:= True;
 btn11.Enabled:= True;
 
-id:=zqry2.Fields[0].AsString;
+id:=zqry1.Fields[0].AsString;
 
-edt1.Text:= zqry2.FieldList[1].AsString;
-edt2.Text:= zqry2.FieldList[2].AsString;
-edt3.Text:= zqry2.FieldList[3].AsString;
-edt4.Text:= zqry2.FieldList[4].AsString;
-edt5.Text:= zqry2.FieldList[4].AsString;
-edt6.Text:= zqry2.FieldList[4].AsString;
+edt1.Text:= zqry1.FieldList[1].AsString;
+edt2.Text:= zqry1.FieldList[2].AsString;
+edt3.Text:= zqry1.FieldList[3].AsString;
+edt4.Text:= zqry1.FieldList[4].AsString;
+edt5.Text:= zqry1.FieldList[4].AsString;
+edt6.Text:= zqry1.FieldList[4].AsString;
+end;
+
+procedure TForm5.btn12Click(Sender: TObject);
+begin
+frxreport1.ShowReport();
 end;
 
 end.

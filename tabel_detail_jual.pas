@@ -5,7 +5,8 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, StdCtrls, Grids, DBGrids, DB, ZAbstractRODataset,
-  ZAbstractDataset, ZDataset, ZAbstractConnection, ZConnection;
+  ZAbstractDataset, ZDataset, ZAbstractConnection, ZConnection, frxClass,
+  frxDBSet;
 
 type
   TForm6 = class(TForm)
@@ -31,6 +32,8 @@ type
     con1: TZConnection;
     zqry1: TZQuery;
     ds1: TDataSource;
+    frxreport1: TfrxReport;
+    frxdbdtst1: TfrxDBDataset;
     procedure posisiawal;
     procedure editbersih;
     procedure editenable;
@@ -42,6 +45,7 @@ type
     procedure btn5Click(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure dbgrd1CellClick(Column: TColumn);
+    procedure btn6Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -118,7 +122,7 @@ begin
 end else
 if(zqry1.Locate('id_jual',edt1.Text,[]))then
 begin
-  ShowMessage('Data detail_jual sudah ada');
+  ShowMessage('Data tabel_detail_jual sudah ada');
   posisiawal;
 end else
 begin
@@ -202,6 +206,11 @@ edt3.Text:= zqry1.FieldList[3].AsString;
 edt4.Text:= zqry1.FieldList[4].AsString;
 edt5.Text:= zqry1.FieldList[4].AsString;
 
+end;
+
+procedure TForm6.btn6Click(Sender: TObject);
+begin
+frxreport1.ShowReport();
 end;
 
 end.

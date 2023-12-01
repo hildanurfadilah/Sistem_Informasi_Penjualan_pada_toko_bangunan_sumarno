@@ -20,6 +20,7 @@ type
     zqry1: TZQuery;
     ds1: TDataSource;
     procedure btn1Click(Sender: TObject);
+    procedure btn2Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -31,7 +32,7 @@ var
 
 implementation
 
-uses menu_utama;
+uses menu_utama, daftar;
 
 {$R *.dfm}
 
@@ -60,6 +61,12 @@ with zqry1 do
      end;
 
     end;
+end;
+
+procedure TForm1.btn2Click(Sender: TObject);
+begin
+Hide;
+  form12.show;
 end;
 
 end.

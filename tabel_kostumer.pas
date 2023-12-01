@@ -5,7 +5,8 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, StdCtrls, Grids, DBGrids, DB, ZAbstractRODataset,
-  ZAbstractDataset, ZDataset, ZAbstractConnection, ZConnection;
+  ZAbstractDataset, ZDataset, ZAbstractConnection, ZConnection, frxClass,
+  frxDBSet;
 
 type
   TForm10 = class(TForm)
@@ -29,6 +30,8 @@ type
     btn6: TButton;
     dbgrd1: TDBGrid;
     cmb1: TComboBox;
+    frxreport1: TfrxReport;
+    frxdbdtst1: TfrxDBDataset;
     procedure posisiawal;
     procedure editbersih;
     procedure editenable;
@@ -40,6 +43,7 @@ type
     procedure btn5Click(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure dbgrd1CellClick(Column: TColumn);
+    procedure btn6Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -113,16 +117,16 @@ begin
 end else
 if(zqry1.Locate('nama_kostumer',edt1.Text,[]))then
 begin
-  ShowMessage('Data cust sudah ada');
+  ShowMessage('Data tabel_kostumer sudah ada');
   posisiawal;
 end else
 begin
 zqry1.sql.clear;
-zqry1.sql.Add('insert into kostumer values(null,"'+edt1.Text+'","'+cmb1.Text+'","'+edt3.text+'","'+edt4.text+'")');
+zqry1.sql.Add('insert into tabel_kostumer values(null,"'+edt1.Text+'","'+cmb1.Text+'","'+edt3.text+'","'+edt4.text+'")');
 zqry1.ExecSQL;
 
 zqry1.SQL.Clear;
-zqry1.SQL.Add('select * from kostumer');
+zqry1.SQL.Add('select * from tabel_kostumer');
 zqry1.Open;
 ShowMessage('DATA BERHASIL DISIMPAN!!');
 posisiawal;
@@ -136,12 +140,12 @@ id:=dbgrd1.DataSource.DataSet.FieldByName('id').AsString;
 
 
 zqry1.SQL.Clear;
-zqry1.SQL.Add('Update kostumer set nama_kostumer= "'+edt1.Text+'", jk = "'+cmb1.Text+'",alamat = "'+edt3.Text+'", no_telp = "'+edt4.Text+'" where id ="'+id+'"');
+zqry1.SQL.Add('Update tabel_kostumer set nama_kostumer= "'+edt1.Text+'", jk = "'+cmb1.Text+'",alamat = "'+edt3.Text+'", no_telp = "'+edt4.Text+'" where id ="'+id+'"');
 zqry1.ExecSQL;
 ShowMessage('DATA BERHASIL DIUPDATE!'); //UPDATE
 
 zqry1.SQL.Clear;
-zqry1.SQL.Add('select * from kostumer');
+zqry1.SQL.Add('select * from tabel_kostumer');
 zqry1.Open;
 posisiawal;
 end;
@@ -154,11 +158,11 @@ begin
 id:=dbgrd1.DataSource.DataSet.FieldByName('id').AsString;
 
 zqry1.SQL.Clear;
-zqry1.SQL.Add(' delete from kostumer where id ="'+id+'"');
+zqry1.SQL.Add(' delete from tabel_kostumer where id ="'+id+'"');
 zqry1.ExecSQL;
 
 zqry1.SQL.Clear;
-zqry1.SQL.Add('select * from kostumer');
+zqry1.SQL.Add('select * from tabel_kostumer');
 zqry1.Open;
 ShowMessage('DATA BERHASIL DIHAPUS');
 posisiawal;
@@ -195,6 +199,11 @@ edt1.Text:= zqry1.FieldList[1].AsString;
 cmb1.Text:= zqry1.FieldList[2].AsString;
 edt3.Text:= zqry1.FieldList[3].AsString;
 edt4.Text:= zqry1.FieldList[4].AsString;
+end;
+
+procedure TForm10.btn6Click(Sender: TObject);
+begin
+frxreport1.ShowReport();
 end;
 
 end.
